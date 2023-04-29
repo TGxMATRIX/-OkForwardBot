@@ -9,9 +9,9 @@
     "forward",
     "bot"
   ],
-  "success_url": "https://t.me/DForDarkAngel",
-  "website": "https://github.com/Jijinr/Frwdit-V2",
-  "repository": "https://github.com/drchetancreation/-OkForwardBot",
+  "success_url": "https://github.com/matrixbotz0/-OkForwardBot",
+  "website": "https://github.com/matrixbotz0/-OkForwardBot",
+  "repository": "https://github.com/matrixbotz0/-OkForwardBot",
   "env": {
     "API_ID": {
       "description": "Get this value from https://my.telegram.org or @UseTGSBot",
@@ -45,7 +45,7 @@
   "formation": {
     "worker": {
       "quantity": 1,
-      "size": "free"
+      "size": "eco"
     }
   }
 }
