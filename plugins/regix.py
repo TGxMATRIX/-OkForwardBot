@@ -44,7 +44,7 @@ async def pub_(bot, message):
                             file_name = message.audio.file_name
                         else:
                             file_name = None
-                        file = message.message_id
+                        file = message
                         downloded = await file.download(file_name=file_name)
                         cap = file_name
                         thumb = temp.THUMBNAIL
