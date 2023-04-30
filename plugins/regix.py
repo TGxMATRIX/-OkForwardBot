@@ -8,7 +8,7 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, Message
 from pyrogram.errors import FloodWait
-from config import Config
+from config import Config, temp
 from translation import Translation
 
 FILTER = Config.FILTER_TYPE
@@ -44,24 +44,20 @@ async def pub_(bot, message):
                             file_name = message.audio.file_name
                         else:
                             file_name = None
-                        await bot.copy_message(
-                            chat_id=TO,
-                            from_chat_id=FROM,
-                            parse_mode="md",       
-                            caption=Translation.CAPTION.format(file_name),
-                            message_id=message.message_id
-                        )
+                        file = message.message_id
+                        downloded = await file.download(file_name=file_name)
+                        cap = file_name
+                        thumb = temp.THUMBNAIL
+                        if thumb:
+                            thumbnail = await bot.download_media(thumb)
+                        else:
+                            return
+                        await USER.send_document(TO, document=downloaded, thumb=thumbnail, caption=cap)                       
                         total_files += 1
                         await asyncio.sleep(1)
                     except FloodWait as e:
                         await asyncio.sleep(e.x)
-                        await bot.copy_message(
-                            chat_id=TO,
-                            from_chat_id=FROM,
-                            parse_mode="md",       
-                            caption=Translation.CAPTION.format(file_name),
-                            message_id=message.message_id
-                        )
+                        await USER.send_document(TO, document=downloaded, thumb=thumbnail, caption=cap)                        
                         total_files += 1
                         await asyncio.sleep(1)
                     except Exception as e:
@@ -93,7 +89,7 @@ async def pub_(bot, message):
                     text=f"<u><i>Successfully Forwarded</i></u>\n\n<b>Total Forwarded Files:-</b> <code>{total_files}</code> <b>Files</b>\n<b>Thanks For Using Me❤️</b>",
                     reply_markup=reply_markup,
                     parse_mode="html")
-      
+
 @Client.on_callback_query(filters.regex(r'^terminate_frwd$'))
 async def terminate_frwding(bot, update):
     global IS_CANCELLED
