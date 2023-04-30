@@ -5,6 +5,10 @@
 import os
 import logging
 
+class temp(object):
+    THUMBNAIL = os.environ.get("THUMBNAIL", "")
+
+
 class Config:
     
     API_ID = int(os.environ.get("API_ID", 12345))
@@ -17,3 +21,5 @@ class Config:
     SESSION = os.environ.get("SESSION")
 def LOGGER(name: str) -> logging.Logger:
     return logging.getLogger(name)
+
+
