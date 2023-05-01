@@ -45,13 +45,15 @@ async def pub_(bot, message):
                         else:
                             file_name = None
                         file = message
+                        
                         downloded = await file.download(file_name=file_name)
+                        ms = await message.reply_text("Downloading")
                         cap = file_name
                         thumb = temp.THUMBNAIL
                         if thumb:
                             thumbnail = await bot.download_media(thumb)
                         else:
-                            return
+                            return await ms.edit("Thumb not found")
                         await USER.send_document(TO, document=downloaded, thumb=thumbnail, caption=cap)                       
                         total_files += 1
                         await asyncio.sleep(1)
